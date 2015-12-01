@@ -86,6 +86,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TabWidget;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+
 import com.android.internal.util.UserIcons;
 import com.android.settings.UserAdapter.UserDetails;
 import com.android.settings.dashboard.DashboardTile;
@@ -1175,6 +1180,30 @@ public final class Utils {
             Log.e(TAG, "Unable to acquire UserManager");
             return UserHandle.myUserId();
         }
+    }
+
+    // Snackbar with action button
+    public static void showSnackbar(final String message, Snackbar.SnackbarDuration duration,
+            final String label, final Intent intent, final Context context) {
+        Activity realActivity = ((Activity)context).getParent();
+        if (realActivity == null) {
+            realActivity = (Activity)context;
+        }
+        final Activity activity = realActivity;
+        SnackbarManager.show(
+            Snackbar.with(context)
+                .type(SnackbarType.MULTI_LINE)
+                .text(message)
+                .color(context.getResources()
+                        .getColor(R.color.theme_primary_dark))
+                .actionLabel(label)
+                .actionListener(new ActionClickListener() {
+                    @Override
+                    public void onActionClicked(Snackbar snackbar) {
+                        activity.startActivity(intent);
+                    }
+                })
+                , activity);
     }
 }
 

@@ -26,4 +26,7 @@
 	<!-- Vendor version -->
     <string name="vendor_version">Vendor version</string>
     <string name="vendor_version_default">Unknown</string>
+	
+	<!-- Snackbar action button -->
+    <string name="dev_settings_action_button">Settings</string>
 </resources>
